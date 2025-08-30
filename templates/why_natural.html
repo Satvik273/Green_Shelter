@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block body_class %}has-full-hero{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components/why_natural.css', v=cache_buster) }}">
+{% endblock %}
+
+{% block content %}
+<div class="why-natural-page">
+    <div class="why-natural-hero">
+        <h1>Why Natural Construction?</h1>
+        <p>Discover the profound benefits of building with nature's most resilient and sustainable materials.</p>
+    </div>
+
+    <div class="why-natural-content">
+        <div class="materials-grid">
+            <div class="material-card bamboo">
+                <i class="fas fa-tree"></i>
+                <h2>Bamboo Benefits</h2>
+                <ul>
+                    {% for benefit in benefits.bamboo %}
+                    <li>{{ benefit }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="material-card cow-dung">
+                <i class="fas fa-leaf"></i>
+                <h2>Cow Dung Benefits</h2>
+                <ul>
+                    {% for benefit in benefits.cow_dung %}
+                    <li>{{ benefit }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>Traditional Wisdom, Modern Application</h2>
+            <p>Our approach combines ancient construction techniques with modern engineering to create sustainable, comfortable, and durable structures.</p>
+        </div>
+
+        <div class="comparison-section">
+            <h2>Natural vs. Conventional Construction</h2>
+            <div class="comparison-table">
+                <div class="comparison-header">
+                    <div>Feature</div>
+                    <div>Natural Construction (GauBaanSa)</div>
+                    <div>Conventional RCC Construction</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="feature-title"><i class="fas fa-leaf"></i> Environmental Impact</div>
+                    <div class="pro">Carbon Negative. Uses renewable resources, sequesters CO2.</div>
+                    <div class="con">High Carbon Footprint. Cement production is a major CO2 emitter.</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="feature-title"><i class="fas fa-rupee-sign"></i> Cost</div>
+                    <div class="pro">More pocket-friendly due to use of local, abundant materials.</div>
+                    <div class="con">Higher cost due to energy-intensive materials like steel and cement.</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="feature-title"><i class="fas fa-heartbeat"></i> Health & Comfort</div>
+                    <div class="pro">Natural thermal insulation (7-11°C difference), non-toxic, pollutant-absorbing.</div>
+                    <div class="con">Poor thermal insulation leading to higher energy bills. Risk of "sick building syndrome".</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="feature-title"><i class="fas fa-shield-alt"></i> Safety & Durability</div>
+                    <div class="pro">Earthquake, fire, and pest resistant. Designed for longevity.</div>
+                    <div class="con">Prone to cracking and degradation over time. Requires significant reinforcement for seismic safety.</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="feature-title"><i class="fas fa-recycle"></i> Waste Generation</div>
+                    <div class="pro">Minimal and biodegradable waste. Promotes a circular economy.</div>
+                    <div class="con">Generates millions of tonnes of non-biodegradable C&D waste.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

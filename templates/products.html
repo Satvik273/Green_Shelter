@@ -1,0 +1,59 @@
+
+{% extends "base.html" %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components/products.css', v=cache_buster) }}">
+{% endblock %}
+
+{% block content %}
+<div class="products-page">
+    <div class="products-hero">
+        <h1>Products & Services</h1>
+        <p>We offer expert consultancy and innovative carbon-negative materials to build a sustainable future.</p>
+    </div>
+
+    <!-- Consultancy Services Section -->
+    <div class="services-section">
+        <h2>Consultancy Services</h2>
+        <div class="services-grid">
+            {% for service in services %}
+            <div class="service-card">
+                <i class="{{ service.icon }}"></i>
+                <h3>{{ service.name }}</h3>
+                <p>{{ service.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Carbon Negative Materials Section -->
+    <div class="materials-section">
+        <h2>Carbon Negative Construction Materials</h2>
+        <div class="products-grid">
+            {% for product in products %}
+            <div class="product-card" data-category="{{ product.category }}">
+                <div class="product-image">
+                    <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
+                    <div class="product-overlay">
+                        <a href="{{ url_for('product_detail', product_id=product.id) }}" class="view-details-btn">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3>{{ product.name }}</h3>
+                    <p class="product-description">{{ product.description }}</p>
+                    {% if product.features %}
+                    <div class="product-features">
+                        {% for feature in product.features.split(',') %}
+                        <span class="feature-tag">{{ feature }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

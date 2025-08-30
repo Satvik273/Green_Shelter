@@ -1,0 +1,37 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="faq-page">
+    <h1>Frequently Asked Questions</h1>
+    <div class="faq-container">
+        {% for faq in faqs %}
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>{{ faq.question }}</h3>
+                <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+            </div>
+            <div class="faq-answer">
+                <p>{{ faq.answer }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.querySelectorAll('.faq-question').forEach(question => {
+    question.addEventListener('click', () => {
+        const answer = question.nextElementSibling;
+        const icon = question.querySelector('.faq-toggle i');
+        
+        answer.style.maxHeight = answer.style.maxHeight ? null : answer.scrollHeight + 'px';
+        icon.classList.toggle('fa-plus');
+        icon.classList.toggle('fa-minus');
+        question.classList.toggle('active');
+    });
+});
+</script>
+{% endblock %}

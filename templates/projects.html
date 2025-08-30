@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components/projects.css', v=cache_buster) }}">
+{% endblock %}
+
+{% block content %}
+<div class="projects-page">
+    <h1>R&D Projects at IIT Delhi</h1>
+    <div class="projects-intro">
+        <p>
+            IKS Tech is a startup originating from the M.Tech. project of its CEO, Ms Vaishali Bansal, at IIT Delhi. 
+            Prof. Suresh Bhalla, Chief Technology Mentor, has completed several IKS projects at IIT Delhi. 
+            <a href="https://web.iitd.ac.in/~sbhalla/sponsoredproject.html" target="_blank" rel="noopener noreferrer">Click here</a> 
+            to see R&D work in the field at IIT Delhi.
+        </p>
+    </div>
+<!-- 
+    <div class="projects-grid">
+        {% for project in projects %}
+        <div class="project-card">
+            <img src="{{ url_for('static', filename=project.image) }}" alt="{{ project.name }}" class="project-image">
+            <div class="project-content">
+                <h3>{{ project.name }}</h3>
+                <p>{{ project.description }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div> -->
+</div>
+{% endblock %}

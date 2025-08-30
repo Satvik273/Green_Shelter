@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components/awards.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="awards-page">
+    <h1>Awards & Recognition</h1>
+    <div class="awards-container">
+        {% for award in awards %}
+        <div class="award-card">
+            <div class="award-year">{{ award.year }}</div>
+            <h3>{{ award.title }}</h3>
+            <p class="award-org">{{ award.organization }}</p>
+            <p class="award-desc">{{ award.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

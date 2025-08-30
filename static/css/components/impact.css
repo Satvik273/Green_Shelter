@@ -1,0 +1,41 @@
+/* Impact Page Styles */
+
+.impact-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../images/gallery/construction/finished.jpg') center/cover no-repeat;
+    color: var(--white);
+    text-align: center;
+    padding: 140px 20px 80px; /* Add top padding to account for navbar height */
+}
+
+.impact-hero h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: var(--white);
+}
+
+.impact-hero p {
+    font-size: 1.2em;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.impact-image-container {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.impact-image-container img {
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 768px) {
+    .impact-hero h1 {
+        font-size: 2.5em;
+    }
+}

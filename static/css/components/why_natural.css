@@ -1,0 +1,219 @@
+
+.why-natural-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../images/gallery/bamboo/bamboo_house.jpg') center/cover no-repeat;
+    color: var(--white);
+    text-align: center;
+    padding: 140px 20px 80px; /* Add top padding to account for navbar height */
+}
+
+.why-natural-hero h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: var(--white);
+}
+
+.why-natural-hero p {
+    font-size: 1.2em;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.why-natural-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 70px 20px;
+}
+
+.materials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.material-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    text-align: center;
+}
+
+.material-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.material-card i {
+    font-size: 2.5em;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.material-card h2 {
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-size: 1.4em;
+}
+
+.material-card ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.material-card ul li {
+    margin: 10px 0;
+    padding-left: 25px;
+    position: relative;
+}
+
+.material-card ul li:before {
+    content: '✓';
+    color: var(--primary);
+    position: absolute;
+    left: 0;
+}
+
+.info-section {
+    margin-top: 60px;
+    padding: 40px;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
+}
+
+.info-section h2 {
+    color: var(--primary);
+    margin: 20px 0;
+}
+
+.info-section p {
+    line-height: 1.6;
+    color: var(--text-dark);
+    margin-bottom: 30px;
+}
+
+.comparison-section {
+    margin-top: 80px;
+}
+
+.comparison-section h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 50px;
+}
+
+.comparison-table {
+    max-width: 1000px;
+    margin: 0 auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.comparison-header {
+    display: grid;
+    grid-template-columns: 1.5fr 2fr 2fr;
+    background: var(--primary);
+    color: var(--white);
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.comparison-header div {
+    padding: 20px;
+    text-align: center;
+}
+
+.comparison-row {
+    display: grid;
+    grid-template-columns: 1.5fr 2fr 2fr;
+    border-bottom: 1px solid #e0e0e0;
+    background: var(--white);
+}
+
+.comparison-row:last-child {
+    border-bottom: none;
+}
+
+.comparison-row div {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.comparison-row .feature-title {
+    font-weight: 600;
+    color: var(--primary);
+    background: #f9f9f9;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 15px;
+}
+
+.comparison-row .pro {
+    color: #1b5e20; /* Dark green */
+}
+
+.comparison-row .con {
+    color: #b71c1c; /* Dark red */
+}
+
+@media (max-width: 768px) {
+    .materials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-section {
+        padding: 20px;
+    }
+
+    .comparison-header {
+        display: none;
+    }
+
+    .comparison-row {
+        grid-template-columns: 1fr;
+        margin-bottom: 20px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+    }
+
+    .comparison-row div {
+        grid-column: 1 / -1;
+        padding: 15px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .comparison-row div:last-child {
+        border-bottom: none;
+    }
+
+    .comparison-row .feature-title {
+        background: var(--primary);
+        color: var(--white);
+        border-radius: 8px 8px 0 0;
+    }
+
+    .comparison-row .pro::before {
+        content: 'GauBaanSa: ';
+        font-weight: 600;
+        color: var(--primary);
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .comparison-row .con::before {
+        content: 'Conventional: ';
+        font-weight: 600;
+        color: #b71c1c;
+        display: block;
+        margin-bottom: 5px;
+    }
+}

@@ -1,0 +1,37 @@
+# render.yaml
+# This file configures the services for your application on Render.
+# For more info, see: https://render.com/docs/blueprint-spec
+
+services:
+  # A PostgreSQL database service.
+  # Render will automatically create this and provide its URL to the web service.
+  - type: psql
+    name: greenshelter-db
+    # The 'free' plan is a great place to start.
+    # See https://render.com/docs/free#free-postgresql-databases
+    plan: free
+
+  # The Python Flask web service.
+  - type: web
+    name: greenshelter-app
+    env: python
+    plan: free # Or choose a paid plan for more resources
+    # The region where your service will be deployed.
+    # Choose one close to you or your users (e.g., oregon, frankfurt).
+    region: oregon
+    buildCommand: |
+      pip install -r requirements.txt
+      flask db upgrade
+    startCommand: "gunicorn --workers 4 --bind 0.0.0.0:$PORT app:app"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9 # Match the version from your previous config
+      - key: SECRET_KEY
+        generateValue: true # Render will automatically generate a secure secret key
+      - key: DATABASE_URL
+        fromService:
+          type: psql
+          name: greenshelter-db
+          property: connectionString
+      # NOTE: You will need to add your MAIL_* credentials manually
+      # in the Render dashboard after the first deployment.

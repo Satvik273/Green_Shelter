@@ -1,0 +1,24 @@
+
+:root {
+    /* Colors - Lush Meadow Theme */
+    --primary: #4CAF50;      /* Leafy Green */
+    --secondary: #FFC107;     /* Punchy Amber */
+    --accent: #F1F8E9;       /* Very Light Green */
+    --text-dark: #212121;     /* Deep Charcoal */
+    --text-light: #757575;    /* Medium Grey */
+    --white: #FAFAFA;       /* Clean Off-White */
+
+    /* Spacing */
+    --spacing-sm: 10px;
+    --spacing-md: 20px;
+    --spacing-lg: 30px;
+    --spacing-xl: 40px;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 8px rgba(0,0,0,0.15);
+    --shadow-lg: 0 8px 16px rgba(0,0,0,0.2);
+
+    /* Transition */
+    --transition: all 0.3s ease;
+}

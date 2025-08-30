@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components/gallery.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="gallery-container">
+    <h1>Our Gallery</h1>
+
+    <!-- Gallery filters -->
+    <div class="gallery-filters">
+        <button class="filter-btn active" data-category="All">All</button>
+        <button class="filter-btn" data-category="Bamboo">Bamboo</button>
+        <button class="filter-btn" data-category="Cow-Dung">Cow Dung</button>
+        <button class="filter-btn" data-category="Construction">Construction</button>
+    </div>
+
+    <!-- Gallery grid -->
+    <div class="gallery-grid">
+        {% for image in gallery_images %}
+        <div class="gallery-item" data-category="{{ image.category }}">
+            <a href="{{ url_for('static', filename=image.path) }}" data-lightbox="gallery" data-title="{{ image.title }}">
+                <img src="{{ url_for('static', filename=image.path) }}" alt="{{ image.title }}">
+                <div class="gallery-overlay">
+                    <h3>{{ image.title }}</h3>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+<script>
+    lightbox.option({
+        'resizeDuration': 200,
+        'wrapAround': true,
+        'albumLabel': 'Image %1 of %2'
+    })
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-category');
+
+                galleryItems.forEach(item => {
+                    if (filter === 'All' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

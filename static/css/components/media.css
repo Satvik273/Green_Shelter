@@ -1,0 +1,64 @@
+/* Media Page Styles */
+.media-page {
+    padding: 0 20px 60px; /* Removed top padding */
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.media-page h1 {
+    color: var(--primary);
+    font-size: 3em;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.media-page .media-subtitle {
+    font-size: 1.2em;
+    color: var(--text-light);
+    margin-bottom: 60px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.media-list {
+    display: grid;
+    gap: 30px;
+}
+
+.media-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    text-align: left;
+    transition: var(--transition);
+    border-left: 5px solid var(--primary);
+}
+
+.media-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.media-card h3 {
+    font-size: 1.6em;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.media-card .media-source {
+    font-size: 1em;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.media-card p {
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.media-card .button {
+    display: inline-block;
+}

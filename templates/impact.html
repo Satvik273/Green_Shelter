@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block body_class %}has-full-hero{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components/impact.css', v=cache_buster) }}">
+{% endblock %}
+
+{% block content %}
+<div class="impact-page">
+    <div class="impact-hero">
+        <h1>Our Positive Impact</h1>
+        <p>We are committed to building a sustainable future, one structure at a time. Our work empowers communities, revitalizes ecosystems, and creates healthier living spaces.</p>
+    </div>
+
+    <!-- Impact Image -->
+    <div class="impact-image-container">
+        <img src="{{ url_for('static', filename='images/gallery/construction/finished.jpg') }}" alt="A finished sustainable construction project">
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components/media.css', v=cache_buster) }}">
+{% endblock %}
+
+{% block content %}
+<div class="media-page">
+    <h1>In The Media</h1>
+    <p class="media-subtitle">We are proud to be featured for our innovative work in sustainable construction.</p>
+
+    <div class="media-list">
+        {% for item in media_items %}
+        <div class="media-card">
+            <h3>{{ item.title }}</h3>
+            <p class="media-source">Source: <strong>{{ item.source }}</strong></p>
+            <p>{{ item.description }}</p>
+            <a href="{{ item.url }}" class="button" target="_blank" rel="noopener noreferrer">Read Full Article</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

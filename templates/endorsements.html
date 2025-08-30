@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block body_class %}has-full-hero{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components/endorsements.css', v=cache_buster) }}">
+{% endblock %}
+
+{% block content %}
+<div class="endorsements-page">
+    <div class="endorsements-hero">
+        <h1>Our Endorsements &amp; Recognitions</h1>
+        <p>We are proud to be recognized by leading institutions and to have our innovations acknowledged through patents and global alignments.</p>
+    </div>
+<!-- 
+    <div class="endorsements-section">
+        <h2>Endorsed By</h2>
+        <div class="endorsements-grid">
+            {% for endorsement in endorsements %}
+            <a href="{{ endorsement.url }}" target="_blank" rel="noopener noreferrer" class="endorsement-card">
+                <img src="{{ url_for('static', filename=endorsement.logo) }}" alt="{{ endorsement.name }} Logo">
+                <p>{{ endorsement.name }}</p>
+            </a>
+            {% endfor %}
+        </div>
+    </div> -->
+
+
+    <div class="achievements-section">
+        <h2>Our Achievements</h2>
+        <div class="achievements-grid">
+            {% for achievement in achievements %}
+            <div class="achievement-card">
+                <i class="{{ achievement.icon }}"></i>
+                <div class="achievement-content">
+                    <h3>{{ achievement.title }}</h3>
+                    <p>{{ achievement.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

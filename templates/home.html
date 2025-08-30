@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block body_class %}home-page{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-content">
+        <div class="logo-large">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="GauBaanSa Logo">
+        </div>
+        <h1 class="company-name">GauBaanSa</h1>
+        <p class="tagline">Incubating Eco Homes That Breathe With You.</p>
+        <!-- <a href="{{ url_for('about') }}" class="button">Learn More</a> -->
+    </div>
+</div>
+
+<section class="features-section">
+    <div class="container">
+        <div class="intro-content">
+            <h2>Our Promise</h2>
+            <p>We will revolutionize the construction industry, creating eco-friendly and Earthquake safe structures that significantly reduce carbon footprint, and empower communities across India.</p>
+            <h2>Our Purpose</h2>
+            <p>GauBaanSa is committed to alleviating conventional concrete-based construction technology with a green construction technology to create a future where nature co-exists with safety.</p>
+            <h2>Our Pride</h2>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <i class="fas fa-lightbulb"></i>
+                <h3>Homegrown Innovation</h3>
+                <p>Our technology is a bridge between traditions and innovation, indigenously developed by brilliant engineers from IIT Delhi. It's truly "by Indians, for Indians."</p>
+            </div>
+            <div class="feature-card fade-in">
+                <i class="fas fa-seedling"></i>
+                <h3>Nature's Best Materials</h3>
+                <p>We use simple, locally sourced, and naturally abundant bio-materials like cow dung, bamboo, and reed.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Building a Better Future</h3>
+                <p>Our structures are not just green; They are:</p>
+                <ul class="feature-list">
+                    <li>Earthquake-resistant for superior safety.</li>
+                    <li>Pest and fire-resistant.</li>
+                    <li>Naturally thermally insulated, keeping homes comfortable year-round.</li>
+                    <li>Pollutant-absorbing, creating a healthier environment inside and out.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

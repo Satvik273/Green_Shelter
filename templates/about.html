@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+{# The component CSS files are already imported by style.css, so these links are not needed. #}
+{% endblock %}
+
+{% block content %}
+<div class="about-page">
+    <h1>Core Team</h1>
+    <div class="team-section">
+        <div class="team-grid">
+            {% for member in team_members %}
+            <div class="team-member">
+                <div class="team-member-image">
+                    <img src="{{ url_for('static', filename=member.image) }}" alt="{{ member.name }}">
+                </div>
+                <div class="team-member-info">
+                    <h3 class="team-member-name">{{ member.name }}</h3>
+                    <div class="team-member-position">{{ member.position }}</div>
+                    <p class="team-member-bio">{{ member.bio }}</p>
+                    <div class="team-member-social">
+                        {% if member.linkedin_url %}
+                        <a href="{{ member.linkedin_url }}"><i class="fab fa-linkedin-in"></i></a>
+                        {% endif %}
+                        {% if member.twitter_url %}
+                        <a href="{{ member.twitter_url }}"><i class="fab fa-twitter"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
