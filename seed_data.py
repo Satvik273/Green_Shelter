@@ -110,7 +110,7 @@ sample_faqs = [
     {"question": "How much more expensive is this technology construction as compared to conventional RCC Construction?", "answer": "This technology shall be more pocket friendly as compared to  conventional RCC Construction."},
     {"question": "How many storeys can be built using this technology?", "answer": "You can make good G+2 house using this technology."},
     {"question": "Are the cowdung bricks prone to easy damage?", "answer": "No, the cowdung bricks are as good as red bricks and provide better fire resistance and water resistance."},
-    {"question": "Are these structures sufficiently thermally resistant w.r.t outside temperature?", "answer": "The natural bio-materials used in our technology provide natural thermal resistance to your homes with a temperature difference of around 7-11 Degrees Celsius. That also means lesser use of air conditioners in summers and heaters in winters."},
+    {"question": "Are these structures sufficiently thermally insulated w.r.t outside temperature?", "answer": "The natural bio-materials used in our technology provide natural thermal insulation to your homes with a temperature difference of around 7-11 Degrees Celsius. That also means lesser use of air conditioners in summers and heaters in winters."},
 ]
 
 sample_services = [
