@@ -1,5 +1,43 @@
 {% extends "base.html" %}
 
+{# Override Open Graph and Twitter Card tags for this specific blog post #}
+{% block og_type %}article{% endblock %}
+{% block og_description %}{{ post.excerpt | striptags }}{% endblock %}
+{% block og_image %}{{ url_for('static', filename=post.image, _external=True) }}{% endblock %}
+{% block twitter_description %}{{ post.excerpt | striptags }}{% endblock %}
+{% block twitter_image %}{{ url_for('static', filename=post.image, _external=True) }}{% endblock %}
+
+{# Add Article-specific JSON-LD structured data #}
+{% block json_ld_extra %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ request_url }}"
+  },
+  "headline": "{{ post.title }}",
+  "description": "{{ post.excerpt }}",
+  "image": "{{ url_for('static', filename=post.image, _external=True) }}",
+  "author": {
+    "@type": "Organization",
+    "name": "GauBaanSa"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GauBaanSa",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ url_for('static', filename='images/logo.png', _external=True) }}"
+    }
+  },
+  "datePublished": "{{ post.date_posted.isoformat() }}",
+  "dateModified": "{{ post.date_posted.isoformat() }}"
+}
+</script>
+{% endblock %}
+
 {% block content %}
 <div class="blog-post">
     <div class="post-header">

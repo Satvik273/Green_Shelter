@@ -149,9 +149,14 @@ class Achievement(db.Model):
 
 
 @app.context_processor
-def inject_cache_buster():
-    """Injects a cache-busting query string into templates."""
-    return dict(cache_buster=int(time.time()))
+def inject_global_vars():
+    """Injects global variables into all templates."""
+    return dict(
+        cache_buster=int(time.time()),
+        request_url=request.url,
+        # Provide a default image for Open Graph tags
+        default_og_image=url_for('static', filename='images/logo.png', _external=True)
+    )
 
 @app.route("/")
 def home():

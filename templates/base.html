@@ -6,6 +6,22 @@
     <meta name="description" content="GauBaanSa by IKS Technologies offers revolutionary green construction technology from IIT Delhi engineers. We build sustainable, earthquake-safe homes using carbon-negative materials like bamboo and cow dung bricks for a healthier, eco-friendly future.">
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="hrYFqdDnMRm6eTvhBXmKL1Nt5IdRF9FMNF3YKBdB58s" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:site_name" content="GauBaanSa">
+    <meta property="og:url" content="{{ request_url }}">
+    <meta property="og:title" content="{{ title }} - GauBaanSa">
+    <meta property="og:description" content="{% block og_description %}GauBaanSa by IKS Technologies offers revolutionary green construction technology from IIT Delhi engineers. We build sustainable, earthquake-safe homes using carbon-negative materials like bamboo and cow dung bricks for a healthier, eco-friendly future.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ default_og_image }}{% endblock %}">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ request_url }}">
+    <meta name="twitter:title" content="{{ title }} - GauBaanSa">
+    <meta name="twitter:description" content="{% block twitter_description %}GauBaanSa by IKS Technologies offers revolutionary green construction technology from IIT Delhi engineers. We build sustainable, earthquake-safe homes using carbon-negative materials like bamboo and cow dung bricks for a healthier, eco-friendly future.{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{{ default_og_image }}{% endblock %}">
+
     <meta name="keywords" content="IKS technologies, gaubaansa, Green construction technology, Green homes, Sustainable Construction, Bamboo houses, Cowdung bricks, Sustainable living, Sustainable housing, Structural health monitoring, Carbon negative construction materials, Smart materials, Earthquake safe green construction, Seismic resilient Green structures, Green construction technology by IIT Delhi Engineers, FRBC technology">
     <title>{{ title }} - GauBaanSa</title>
     <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
@@ -13,6 +29,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     {% block extra_head %}{% endblock %}
+
+    <!-- JSON-LD for Structured Data (Organization) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "GauBaanSa by IKS Technologies",
+      "url": "{{ url_for('home', _external=True) }}",
+      "logo": "{{ url_for('static', filename='images/logo.png', _external=True) }}",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "ikstech.vaishali@gmail.com",
+        "contactType": "customer service"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/vaishali-bansal-5270b673/"
+      ]
+    }
+    </script>
+    {% block json_ld_extra %}{% endblock %}
 </head>
 <body class="{% block body_class %}{% endblock %}">
     <nav class="main-nav">
@@ -85,10 +121,10 @@
             <div class="footer-section">
                 <h3>Contact Us</h3>
                 <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/vaishali-bansal-5270b673/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
                 <div class="contact-info">
                     <p><i class="fas fa-envelope"></i> ikstech.vaishali@gmail.com</p>
@@ -103,14 +139,40 @@
             <div class="footer-section">
                 <h3>Newsletter</h3>
                 <p>Subscribe to receive updates on our latest products and innovations.</p>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="info@greenshelter.com" required>
+                <form id="newsletter-form" class="newsletter-form" onsubmit="handleSubscription(event)">
+                    <input type="email" id="newsletter-email" placeholder="your.email@example.com" required>
                     <button type="submit">Subscribe</button>
                 </form>
+                <p id="newsletter-message" style="margin-top: 10px; font-size: 0.9em;"></p>
             </div>
         </div>
     </footer>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js', v=cache_buster) }}"></script>
     {% block extra_scripts %}{% endblock %}
+    <script>
+        // Handle newsletter subscription form submission
+        async function handleSubscription(event) {
+            event.preventDefault();
+            const form = event.target;
+            const emailInput = document.getElementById('newsletter-email');
+            const messageEl = document.getElementById('newsletter-message');
+            const email = emailInput.value;
+
+            try {
+                const response = await fetch("{{ url_for('subscribe') }}", {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                });
+                const result = await response.json();
+                messageEl.textContent = result.message;
+                messageEl.style.color = response.ok ? 'var(--primary-color)' : 'var(--danger-color)';
+                if (response.ok) form.reset();
+            } catch (error) {
+                messageEl.textContent = 'An unexpected error occurred. Please try again.';
+                messageEl.style.color = 'var(--danger-color)';
+            }
+        }
+    </script>
 </body>
 </html>
