@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect, url_for, jsonify
+from flask import Flask, render_template, request, flash, redirect, url_for, jsonify, make_response, Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_mail import Mail, Message
@@ -327,6 +327,42 @@ def subscribe():
     print(f"New newsletter subscription from: {email}")
 
     return jsonify({'success': True, 'message': 'Thank you for subscribing!'})
+
+@app.route('/robots.txt')
+def robots_txt():
+    """Serves the robots.txt file."""
+    sitemap_url = url_for('sitemap', _external=True)
+    txt = f"User-agent: *\nAllow: /\n\nSitemap: {sitemap_url}"
+    response = Response(txt, mimetype='text/plain')
+    return response
+
+@app.route('/sitemap.xml')
+def sitemap():
+    """Generate sitemap.xml for search engines."""
+    pages = []
+
+    # List of static page endpoints
+    endpoints = [
+        'home', 'about', 'projects_page', 'products', 'services', 'contact',
+        'blog', 'gallery', 'faq', 'reviews', 'awards', 'media',
+        'why_natural', 'impact', 'endorsements'
+    ]
+    for endpoint in endpoints:
+        pages.append(url_for(endpoint, _external=True))
+
+    # Dynamic routes for products
+    for product in Product.query.all():
+        pages.append(url_for('product_detail', product_id=product.id, _external=True))
+
+    # Dynamic routes for blog posts
+    for post in Blog.query.all():
+        pages.append(url_for('blog_post', post_id=post.id, _external=True))
+
+    xml_sitemap = render_template('sitemap_template.xml', pages=pages)
+    response = make_response(xml_sitemap)
+    response.headers["Content-Type"] = "application/xml"
+
+    return response
 
 if __name__ == "__main__":
     # For local development, use the PORT environment variable if available, otherwise default to 5001.
