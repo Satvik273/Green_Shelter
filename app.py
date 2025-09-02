@@ -364,6 +364,11 @@ def sitemap():
 
     return response
 
+@app.route('/googlee7a9c4b5ba1c6d51.html')
+def google_verification():
+    """Serves the Google site verification file."""
+    return render_template('googlee7a9c4b5ba1c6d51.html')
+
 if __name__ == "__main__":
     # For local development, use the PORT environment variable if available, otherwise default to 5001.
     # This makes it flexible for different development environments.
