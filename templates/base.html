@@ -56,48 +56,46 @@
             <img src="{{ url_for('static', filename='images/logo.png') }}" alt="GauBaanSa Logo">
             <span>GauBaanSa</span>
         </a>
-        
-        <div class="dropdown">
-            <a href="#" class="dropdown-toggle">STORY<i class="fas fa-chevron-down"></i></a>
-            <div class="dropdown-menu">
-                <a href="{{ url_for('about') }}">Know Us</a>
-                <a href="{{ url_for('why_natural') }}">Why Us</a>
-                <a href="{{ url_for('impact') }}">Our Impact</a>
-                <a href="{{ url_for('endorsements') }}">Endorsements</a>
+
+        <button class="mobile-nav-toggle" aria-controls="nav-links-container" aria-expanded="false">
+            <span class="sr-only">Menu</span>
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="nav-links-container" id="nav-links-container">
+            <div class="dropdown">
+                <button type="button" class="dropdown-toggle">STORY<i class="fas fa-chevron-down"></i></button>
+                <div class="dropdown-menu">
+                    <a href="{{ url_for('about') }}">Know Us</a>
+                    <a href="{{ url_for('why_natural') }}">Why Us</a>
+                    <a href="{{ url_for('impact') }}">Our Impact</a>
+                    <a href="{{ url_for('endorsements') }}">Endorsements</a>
+                </div>
             </div>
-        </div>
-        
-        <div class="dropdown">
-            <a href="#" class="dropdown-toggle">OUR WORK<i class="fas fa-chevron-down"></i></a>
-            <div class="dropdown-menu">
-                <a href="{{ url_for('products') }}">Products & Services</a>
-                <a href="{{ url_for('projects_page') }}">Projects</a>
-                <a href="{{ url_for('gallery') }}">Gallery</a> 
+            
+            <div class="dropdown">
+                <button type="button" class="dropdown-toggle">OUR WORK<i class="fas fa-chevron-down"></i></button>
+                <div class="dropdown-menu">
+                    <a href="{{ url_for('products') }}">Products & Services</a>
+                    <a href="{{ url_for('projects_page') }}">Projects</a>
+                    <a href="{{ url_for('gallery') }}">Gallery</a> 
+                </div>
             </div>
-        </div>
-        
-        <div class="dropdown">
-            <a href="#" class="dropdown-toggle">INSIGHTS<i class="fas fa-chevron-down"></i></a>
-            <div class="dropdown-menu">
-                <a href="{{ url_for('faq') }}">FAQ's</a>
-                <a href="{{ url_for('blog') }}">Blogs</a>
-                <a href="{{ url_for('reviews') }}">Testimonials</a>
-                <a href="{{ url_for('media') }}">Media</a>
+            
+            <div class="dropdown">
+                <button type="button" class="dropdown-toggle">INSIGHTS<i class="fas fa-chevron-down"></i></button>
+                <div class="dropdown-menu">
+                    <a href="{{ url_for('faq') }}">FAQ's</a>
+                    <a href="{{ url_for('blog') }}">Blogs</a>
+                    <a href="{{ url_for('reviews') }}">Testimonials</a>
+                    <a href="{{ url_for('media') }}">Media</a>
+                </div>
             </div>
+            
+            <a href="{{ url_for('contact') }}">Contact Us</a>
         </div>
-        
-        <a href="{{ url_for('contact') }}">Contact Us</a>
     </nav>
     <main>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <div class="flash-messages">
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }}">{{ message }}</div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        {% endwith %}
         {% block content %}
         {% endblock %}
     </main>
@@ -150,6 +148,19 @@
     <script src="{{ url_for('static', filename='js/main.js', v=cache_buster) }}"></script>
     {% block extra_scripts %}{% endblock %}
     <script>
+        // Mobile navigation toggle
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const navLinksContainer = document.querySelector('#nav-links-container');
+
+        mobileNavToggle.addEventListener('click', () => {
+            const isExpanded = mobileNavToggle.getAttribute('aria-expanded') === 'true';
+            mobileNavToggle.setAttribute('aria-expanded', !isExpanded);
+            navLinksContainer.classList.toggle('nav-active');
+            mobileNavToggle.querySelector('i').classList.toggle('fa-bars', isExpanded);
+            mobileNavToggle.querySelector('i').classList.toggle('fa-times', !isExpanded);
+        });
+    </script>
+    <script>
         // Handle newsletter subscription form submission
         async function handleSubscription(event) {
             event.preventDefault();
@@ -166,11 +177,11 @@
                 });
                 const result = await response.json();
                 messageEl.textContent = result.message;
-                messageEl.style.color = response.ok ? 'var(--primary-color)' : 'var(--danger-color)';
+                messageEl.style.color = response.ok ? 'var(--primary)' : 'var(--danger)';
                 if (response.ok) form.reset();
             } catch (error) {
                 messageEl.textContent = 'An unexpected error occurred. Please try again.';
-                messageEl.style.color = 'var(--danger-color)';
+                messageEl.style.color = 'var(--danger)';
             }
         }
     </script>

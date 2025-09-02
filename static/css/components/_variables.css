@@ -7,6 +7,7 @@
     --text-dark: #212121;     /* Deep Charcoal */
     --text-light: #757575;    /* Medium Grey */
     --white: #FAFAFA;       /* Clean Off-White */
+    --danger: #e74c3c;       /* Red for errors */
 
     /* Spacing */
     --spacing-sm: 10px;

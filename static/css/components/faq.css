@@ -1,0 +1,68 @@
+/* FAQ Page Styles */
+.faq-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 80px; /* Top padding is now handled by the 'main' element */
+}
+
+.faq-container {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.faq-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--white);
+    transition: var(--transition);
+}
+
+.faq-item:hover {
+    border-color: var(--primary);
+}
+
+.faq-question {
+    width: 100%;
+    padding: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    transition: background-color 0.3s ease;
+}
+
+.faq-question h3 {
+    margin: 0;
+    color: var(--primary);
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.faq-toggle {
+    color: var(--primary);
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+}
+
+.faq-question[aria-expanded="true"] + .faq-answer {
+    max-height: 500px; /* A large enough value */
+    padding: 0 20px 20px;
+}
+
+.faq-question[aria-expanded="true"] .faq-toggle {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    line-height: 1.7;
+    color: var(--text-light);
+}

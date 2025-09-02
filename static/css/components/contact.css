@@ -128,14 +128,12 @@
     color: var(--text-dark);
 }
 
-/* Flash Messages */
-.flash-messages {
-    padding: 0 20px;
-    max-width: 1200px;
-    /* This margin provides some space between the nav and the message. */
-    margin: 20px auto;
+/* Flash Messages Container on Contact Page */
+.flash-messages-container {
+    margin-bottom: 20px;
 }
 
+/* Generic Alert Styles */
 .alert {
     padding: 15px;
     margin-bottom: 20px;

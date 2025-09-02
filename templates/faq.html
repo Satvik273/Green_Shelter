@@ -1,18 +1,43 @@
-
 {% extends "base.html" %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components/faq.css', v=cache_buster) }}">
+{% endblock %}
+
+{# Add FAQPage structured data for SEO Rich Results #}
+{% block json_ld_extra %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for item in faqs %}
+    {
+      "@type": "Question",
+      "name": "{{ item.question }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ item.answer }}"
+      }
+    }{{ "," if not loop.last }}
+    {% endfor %}
+  ]
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <div class="faq-page">
     <h1>Frequently Asked Questions</h1>
     <div class="faq-container">
-        {% for faq in faqs %}
+        {% for item in faqs %}
         <div class="faq-item">
-            <div class="faq-question">
-                <h3>{{ faq.question }}</h3>
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-{{ item.id }}">
+                <h3>{{ item.question }}</h3>
                 <span class="faq-toggle"><i class="fas fa-plus"></i></span>
-            </div>
-            <div class="faq-answer">
-                <p>{{ faq.answer }}</p>
+            </button>
+            <div class="faq-answer" id="faq-answer-{{ item.id }}" role="region">
+                <p>{{ item.answer }}</p>
             </div>
         </div>
         {% endfor %}
@@ -22,16 +47,13 @@
 
 {% block extra_scripts %}
 <script>
-document.querySelectorAll('.faq-question').forEach(question => {
-    question.addEventListener('click', () => {
-        const answer = question.nextElementSibling;
-        const icon = question.querySelector('.faq-toggle i');
-        
-        answer.style.maxHeight = answer.style.maxHeight ? null : answer.scrollHeight + 'px';
-        icon.classList.toggle('fa-plus');
-        icon.classList.toggle('fa-minus');
-        question.classList.toggle('active');
+    document.querySelectorAll('.faq-question').forEach(button => {
+        button.addEventListener('click', () => {
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+            button.setAttribute('aria-expanded', !isExpanded);
+            button.querySelector('.faq-toggle i').classList.toggle('fa-plus', isExpanded);
+            button.querySelector('.faq-toggle i').classList.toggle('fa-minus', !isExpanded);
+        });
     });
-});
 </script>
 {% endblock %}
