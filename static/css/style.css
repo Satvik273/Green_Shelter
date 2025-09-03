@@ -447,8 +447,9 @@ h3:hover {
         flex-direction: column;
         align-items: flex-start;
         padding: 100px 30px 30px;
-        gap: 20px;
+        gap: 0; /* Remove gap to control spacing with padding instead */
         box-shadow: var(--shadow-lg);
+        overflow-y: auto; /* Allow scrolling if menu content is long */
         transition: right 0.4s ease-in-out;
     }
 
@@ -477,18 +478,44 @@ h3:hover {
         font-size: 1.2rem;
     }
 
+    /* Add padding to main mobile nav items for better touch area and cohesive spacing */
+    .nav-links-container > a,
+    .dropdown-toggle {
+        padding: 15px 0;
+    }
+
     .dropdown-menu {
         position: relative;
+        top: auto; /* Reset from desktop absolute positioning */
+        left: auto; /* Reset from desktop absolute positioning */
+        z-index: auto; /* Reset from desktop absolute positioning */
         box-shadow: none;
         opacity: 1;
         visibility: visible;
         transform: none;
         background: rgba(255, 255, 255, 0.05);
+        background: rgba(0, 0, 0, 0.15); /* Use a slightly darker background to create a visual inset */
+        border-radius: 8px;
+        margin-top: 0; /* Remove top margin to connect menu directly to its toggle */
+        padding: 5px 0; /* Add some vertical padding */
         display: none; /* Hidden by default, shown on click */
     }
 
     .dropdown:hover .dropdown-menu { display: none; } /* Disable hover on mobile */
     .dropdown-toggle[aria-expanded="true"] + .dropdown-menu { display: block; }
+
+    /* Override desktop link styles for mobile dropdown */
+    .dropdown-menu a {
+        color: var(--white);
+        font-size: 1rem;
+        padding: 10px 30px; /* Adjust padding */
+        border-bottom: none; /* Remove desktop border */
+    }
+
+    .dropdown-menu a:hover {
+        background-color: rgba(255, 255, 255, 0.1); /* A subtle hover effect */
+        color: var(--white); /* Ensure color doesn't change from another rule */
+    }
 
     /* Rotate chevron on mobile when dropdown is open */
     .dropdown-toggle[aria-expanded="true"] .fa-chevron-down {

@@ -160,18 +160,27 @@
             mobileNavToggle.querySelector('i').classList.toggle('fa-times', !isExpanded);
         });
 
-        // Handle mobile dropdown toggles
-        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+        // Handle mobile dropdown toggles to ensure only one is open at a time
+        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+        dropdownToggles.forEach(toggle => {
             toggle.addEventListener('click', function(event) {
-                // We only want this click behavior on mobile, not on desktop where hover is used.
+                // This click behavior is only for mobile view. Desktop uses hover (CSS).
                 if (window.innerWidth > 1050) {
                     return;
                 }
-                
-                // Prevent default behavior if it's a link, though it's a button.
+
                 event.preventDefault();
-                const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                this.setAttribute('aria-expanded', !isExpanded);
+                const wasExpanded = this.getAttribute('aria-expanded') === 'true';
+
+                // Close all other dropdowns before opening the new one
+                dropdownToggles.forEach(otherToggle => {
+                    otherToggle.setAttribute('aria-expanded', 'false');
+                });
+
+                // If the clicked dropdown was closed, open it.
+                if (!wasExpanded) {
+                    this.setAttribute('aria-expanded', 'true');
+                }
             });
         });
     </script>
