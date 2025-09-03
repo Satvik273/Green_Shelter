@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block meta_description %}{{ meta_description }}{% endblock %}
+{% block og_description %}{{ self.meta_description() }}{% endblock %}
+{% block twitter_description %}{{ self.meta_description() }}{% endblock %}
+
 {% block body_class %}has-full-hero{% endblock %}
 
 {% block content %}

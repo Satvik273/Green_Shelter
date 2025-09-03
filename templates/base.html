@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="GauBaanSa by IKS Technologies offers revolutionary green construction technology from IIT Delhi engineers. We build sustainable, earthquake-safe homes using carbon-negative materials like bamboo and cow dung bricks for a healthier, eco-friendly future.">
+    <meta name="description" content="{% block meta_description %}{{ description or 'Discover GauBaanSa: Sustainable homes with green technology from IIT Delhi. We use carbon-negative bamboo and cow dung bricks for an eco-friendly future.' }}{% endblock %}">
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="hrYFqdDnMRm6eTvhBXmKL1Nt5IdRF9FMNF3YKBdB58s" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
     <meta property="og:site_name" content="GauBaanSa">
-    <meta property="og:url" content="{{ request_url }}">
+    <meta property="og:url" content="{{ request.url }}">
     <meta property="og:title" content="{{ title }} - GauBaanSa">
-    <meta property="og:description" content="{% block og_description %}GauBaanSa by IKS Technologies offers revolutionary green construction technology from IIT Delhi engineers. We build sustainable, earthquake-safe homes using carbon-negative materials like bamboo and cow dung bricks for a healthier, eco-friendly future.{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ self.meta_description() }}{% endblock %}">
     <meta property="og:image" content="{% block og_image %}{{ default_og_image }}{% endblock %}">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="{{ request_url }}">
+    <meta name="twitter:url" content="{{ request.url }}">
     <meta name="twitter:title" content="{{ title }} - GauBaanSa">
-    <meta name="twitter:description" content="{% block twitter_description %}GauBaanSa by IKS Technologies offers revolutionary green construction technology from IIT Delhi engineers. We build sustainable, earthquake-safe homes using carbon-negative materials like bamboo and cow dung bricks for a healthier, eco-friendly future.{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{{ self.meta_description() }}{% endblock %}">
     <meta name="twitter:image" content="{% block twitter_image %}{{ default_og_image }}{% endblock %}">
 
     <meta name="keywords" content="IKS technologies, gaubaansa, Green construction technology, Green homes, Sustainable Construction, Bamboo houses, Cowdung bricks, Sustainable living, Sustainable housing, Structural health monitoring, Carbon negative construction materials, Smart materials, Earthquake safe green construction, Seismic resilient Green structures, Green construction technology by IIT Delhi Engineers, FRBC technology">
@@ -64,7 +64,7 @@
 
         <div class="nav-links-container" id="nav-links-container">
             <div class="dropdown">
-                <button type="button" class="dropdown-toggle">STORY<i class="fas fa-chevron-down"></i></button>
+                <button type="button" class="dropdown-toggle" aria-expanded="false">STORY<i class="fas fa-chevron-down"></i></button>
                 <div class="dropdown-menu">
                     <a href="{{ url_for('about') }}">Know Us</a>
                     <a href="{{ url_for('why_natural') }}">Why Us</a>
@@ -74,7 +74,7 @@
             </div>
             
             <div class="dropdown">
-                <button type="button" class="dropdown-toggle">OUR WORK<i class="fas fa-chevron-down"></i></button>
+                <button type="button" class="dropdown-toggle" aria-expanded="false">OUR WORK<i class="fas fa-chevron-down"></i></button>
                 <div class="dropdown-menu">
                     <a href="{{ url_for('products') }}">Products & Services</a>
                     <a href="{{ url_for('projects_page') }}">Projects</a>
@@ -83,7 +83,7 @@
             </div>
             
             <div class="dropdown">
-                <button type="button" class="dropdown-toggle">INSIGHTS<i class="fas fa-chevron-down"></i></button>
+                <button type="button" class="dropdown-toggle" aria-expanded="false">INSIGHTS<i class="fas fa-chevron-down"></i></button>
                 <div class="dropdown-menu">
                     <a href="{{ url_for('faq') }}">FAQ's</a>
                     <a href="{{ url_for('blog') }}">Blogs</a>
@@ -158,6 +158,21 @@
             navLinksContainer.classList.toggle('nav-active');
             mobileNavToggle.querySelector('i').classList.toggle('fa-bars', isExpanded);
             mobileNavToggle.querySelector('i').classList.toggle('fa-times', !isExpanded);
+        });
+
+        // Handle mobile dropdown toggles
+        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(event) {
+                // We only want this click behavior on mobile, not on desktop where hover is used.
+                if (window.innerWidth > 1050) {
+                    return;
+                }
+                
+                // Prevent default behavior if it's a link, though it's a button.
+                event.preventDefault();
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+            });
         });
     </script>
     <script>

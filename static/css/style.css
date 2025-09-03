@@ -291,6 +291,11 @@ h3:hover {
     letter-spacing: normal;
     color: var(--white);
     text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.main-nav .nav-logo:hover {
+    color: var(--secondary);
 }
 
 .nav-logo img {
@@ -380,12 +385,12 @@ h3:hover {
 }
 
 /* Navigation link animations */
-.nav-links-container > a, .dropdown-toggle {
+.main-nav .nav-logo, .nav-links-container > a, .dropdown-toggle {
     position: relative;
     overflow: hidden;
 }
 
-.nav-links-container > a::after, .dropdown-toggle::after {
+.main-nav .nav-logo::after, .nav-links-container > a::after, .dropdown-toggle::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -396,7 +401,7 @@ h3:hover {
     transition: left 0.3s ease-out;
 }
 
-.nav-links-container > a:hover::after, .dropdown-toggle:hover::after {
+.main-nav .nav-logo:hover::after, .nav-links-container > a:hover::after, .dropdown-toggle:hover::after {
     left: 0;
 }
 
@@ -484,6 +489,11 @@ h3:hover {
 
     .dropdown:hover .dropdown-menu { display: none; } /* Disable hover on mobile */
     .dropdown-toggle[aria-expanded="true"] + .dropdown-menu { display: block; }
+
+    /* Rotate chevron on mobile when dropdown is open */
+    .dropdown-toggle[aria-expanded="true"] .fa-chevron-down {
+        transform: rotate(180deg);
+    }
 }
 
 /* Common Components */

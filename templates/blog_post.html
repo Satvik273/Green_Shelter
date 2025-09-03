@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{# Override Open Graph and Twitter Card tags for this specific blog post #}
+{# --- SEO & Metadata Blocks --- #}
+{% block meta_description %}{{ post.excerpt }}{% endblock %}
+{% block og_description %}{{ post.excerpt }}{% endblock %}
+{% block twitter_description %}{{ post.excerpt }}{% endblock %}
 {% block og_type %}article{% endblock %}
-{% block og_description %}{{ post.excerpt | striptags }}{% endblock %}
 {% block og_image %}{{ url_for('static', filename=post.image, _external=True) }}{% endblock %}
-{% block twitter_description %}{{ post.excerpt | striptags }}{% endblock %}
 {% block twitter_image %}{{ url_for('static', filename=post.image, _external=True) }}{% endblock %}
 
-{# Add Article-specific JSON-LD structured data #}
 {% block json_ld_extra %}
 <script type="application/ld+json">
 {
@@ -15,18 +15,18 @@
   "@type": "BlogPosting",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "{{ request_url }}"
+    "@id": "{{ request.url }}"
   },
   "headline": "{{ post.title }}",
   "description": "{{ post.excerpt }}",
   "image": "{{ url_for('static', filename=post.image, _external=True) }}",
   "author": {
     "@type": "Organization",
-    "name": "GauBaanSa"
+    "name": "GauBaanSa by IKS Technologies"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GauBaanSa",
+    "name": "GauBaanSa by IKS Technologies",
     "logo": {
       "@type": "ImageObject",
       "url": "{{ url_for('static', filename='images/logo.png', _external=True) }}"
@@ -38,19 +38,20 @@
 </script>
 {% endblock %}
 
+
 {% block content %}
 <div class="blog-post">
-    <div class="post-header">
+    <header class="post-header">
         <h1>{{ post.title }}</h1>
-        <div class="post-meta">
-            <span><i class="far fa-calendar"></i> {{ post.date_posted.strftime('%B %d, %Y') }}</span>
-        </div>
-    </div>
+        <p class="blog-meta">
+            <i class="fas fa-calendar-alt"></i> Published on {{ post.date_posted.strftime('%B %d, %Y') }}
+        </p>
+    </header>
     <div class="post-image">
         <img src="{{ url_for('static', filename=post.image) }}" alt="{{ post.title }}">
     </div>
     <div class="post-content">
-        {{ post.content | safe }}
+        {{ post.content|safe }}
     </div>
 </div>
 {% endblock %}

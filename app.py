@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_mail import Mail, Message
 from datetime import datetime
+from slugify import slugify
 import os
 import time
 
@@ -56,7 +57,8 @@ migrate = Migrate(app, db)
 # Product model
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(100), nullable=False, unique=True)
+    slug = db.Column(db.String(120), nullable=False, unique=True)
     description = db.Column(db.Text, nullable=False)
     price = db.Column(db.Float, nullable=False)
     image = db.Column(db.String(200), nullable=False)
@@ -67,7 +69,8 @@ class Product(db.Model):
 # Blog model
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200), nullable=False)
+    title = db.Column(db.String(200), nullable=False, unique=True)
+    slug = db.Column(db.String(220), nullable=False, unique=True)
     content = db.Column(db.Text, nullable=False)
     image = db.Column(db.String(200), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -153,50 +156,68 @@ def inject_global_vars():
     """Injects global variables into all templates."""
     return dict(
         cache_buster=int(time.time()),
-        request_url=request.url,
+        request=request,
         # Provide a default image for Open Graph tags
         default_og_image=url_for('static', filename='images/logo.png', _external=True)
     )
 
 @app.route("/")
 def home():
-    return render_template("home.html", title="Home")
+    title = "GauBaanSa - Sustainable Green Homes with Bamboo & Cow Dung"
+    description = "Discover GauBaanSa, an IIT Delhi initiative for sustainable housing. We build carbon-negative, earthquake-safe homes using innovative bamboo and cow dung brick technology."
+    return render_template("home.html", title=title, meta_description=description)
 
 @app.route("/about")
 def about():
     team_members = TeamMember.query.order_by(TeamMember.id).all()
-    return render_template("about.html", title="About Us", team_members=team_members)
+    title = "About GauBaanSa | Our Mission for Green Construction"
+    description = "Meet the team behind GauBaanSa, co-founded by an IIT Delhi professor. Learn about our mission to revolutionize the construction industry with eco-friendly materials."
+    return render_template("about.html", title=title, team_members=team_members, meta_description=description)
 
 @app.route("/projects")
 def projects_page():
     projects = Project.query.order_by(Project.id).all()
-    return render_template("projects.html", title="Our Projects", projects=projects)
+    title = "Our Projects | Sustainable Construction by GauBaanSa"
+    description = "Explore our portfolio of green construction projects, showcasing homes and structures built with our innovative bamboo and cow dung materials."
+    return render_template("projects.html", title=title, projects=projects, meta_description=description)
 
 @app.route("/products")
 def products():
     all_products = Product.query.all()
     all_services = Service.query.order_by(Service.id).all()
-    return render_template("products.html", title="Products & Services", products=all_products, services=all_services)
+    title = "Products & Services | Green Building Materials & Consultancy"
+    description = "Browse our sustainable products like cow dung bricks and bamboo composites, and learn about our services including structural design and health monitoring."
+    return render_template("products.html", title=title, products=all_products, services=all_services, meta_description=description)
 
 @app.route("/services")
 def services():
     # This route renders the same template as products, which includes the services section.
     all_products = Product.query.all()
     all_services = Service.query.order_by(Service.id).all()
-    return render_template("products.html", title="Our Services", products=all_products, services=all_services)
+    title = "Our Services | Green Construction & Structural Design"
+    description = "GauBaanSa offers expert consultancy in sustainable seismic-resistant construction, structural health monitoring (SHM), and green structural design."
+    return render_template("products.html", title=title, products=all_products, services=all_services, meta_description=description)
 
-@app.route("/product/<int:product_id>")
-def product_detail(product_id):
-    product = Product.query.get_or_404(product_id)
+@app.route("/product/<slug>")
+def product_detail(slug):
+    product = Product.query.filter_by(slug=slug).first_or_404()
     return render_template("product_detail.html", title=product.name, product=product)
 
 @app.route("/contact", methods=['GET', 'POST'])
 def contact():
+    title = "Contact GauBaanSa | Get in Touch"
+    description = "Contact GauBaanSa for inquiries about our sustainable construction products, services, or projects. Reach out to our team for collaborations and information."
+
     if request.method == 'POST':
         name = request.form.get('name')
         email = request.form.get('email')
         message = request.form.get('message')
         phone = request.form.get('phone')
+
+        # Basic validation
+        if not all([name, email, message]):
+            flash('Please fill out all required fields.', 'danger')
+            return render_template("contact.html", title=title, meta_description=description)
 
         try:
             msg = Message(
@@ -221,38 +242,47 @@ def contact():
             flash('Sorry, there was an error sending your message. Please try again later.', 'danger')
 
         return redirect(url_for('contact'))
-    return render_template("contact.html", title="Contact Us")
+    return render_template("contact.html", title=title, meta_description=description)
 
 @app.route("/blog")
 def blog():
     posts = Blog.query.order_by(Blog.date_posted.desc()).all()
-    return render_template("blog.html", title="Blog", posts=posts)
+    title = "GauBaanSa Blog | Insights on Sustainable Construction"
+    description = "Read the latest articles and insights from the GauBaanSa team on green building technology, sustainable materials, and the future of construction in India."
+    return render_template("blog.html", title=title, posts=posts, meta_description=description)
 
-@app.route("/blog/<int:post_id>")
-def blog_post(post_id):
-    post = Blog.query.get_or_404(post_id)
+@app.route("/blog/<slug>")
+def blog_post(slug):
+    post = Blog.query.filter_by(slug=slug).first_or_404()
     return render_template("blog_post.html", title=post.title, post=post)
 
 @app.route("/gallery")
 def gallery():
     gallery_images = GalleryImage.query.order_by(GalleryImage.id).all()
-    return render_template("gallery.html", title="Gallery", gallery_images=gallery_images)
+    title = "Gallery | See Our Sustainable Projects"
+    description = "View our gallery of images showcasing the beauty and versatility of our bamboo and cow dung construction projects and materials."
+    return render_template("gallery.html", title=title, gallery_images=gallery_images, meta_description=description)
 
 @app.route("/faq")
 def faq():
-    # The template for FAQ was not provided, but this will pass the data from the DB.
     faqs = FAQ.query.order_by(FAQ.id).all()
-    return render_template("faq.html", title="FAQ", faqs=faqs)
+    title = "Frequently Asked Questions (FAQ) | GauBaanSa"
+    description = "Find answers to common questions about our green construction technology, including fire resistance, earthquake safety, cost, and material durability."
+    return render_template("faq.html", title=title, faqs=faqs, meta_description=description)
 
 @app.route("/reviews")
 def reviews():
     all_reviews = Review.query.order_by(Review.date_posted.desc()).all()
-    return render_template("reviews.html", title="Testimonials", reviews=all_reviews)
+    title = "Testimonials | What Our Clients Say"
+    description = "Read testimonials and reviews from clients who have chosen GauBaanSa for their sustainable building projects."
+    return render_template("reviews.html", title=title, reviews=all_reviews, meta_description=description)
 
 @app.route("/awards")
 def awards():
     all_awards = Award.query.order_by(Award.year.desc(), Award.id).all()
-    return render_template("awards.html", title="Awards & Recognition", awards=all_awards)
+    title = "Awards & Recognition | GauBaanSa"
+    description = "See the awards and recognition our team and technology have received for innovation in sustainable business and natural building."
+    return render_template("awards.html", title=title, awards=all_awards, meta_description=description)
 
 @app.route("/media")
 def media():
@@ -261,7 +291,6 @@ def media():
 
 @app.route("/why-natural")
 def why_natural():
-    # This data is static and small, so leaving it here is fine.
     benefits = {
         "bamboo": [
             "Rapid growth and renewability",
@@ -278,17 +307,21 @@ def why_natural():
             "Local resource utilization"
         ]
     }
-    return render_template("why_natural.html", title="Why Natural", benefits=benefits)
+    title = "Why Natural Materials? | The Benefits of Bamboo & Cow Dung"
+    description = "Learn why natural, locally-sourced materials like bamboo and cow dung are superior choices for sustainable, healthy, and resilient buildings."
+    return render_template("why_natural.html", title=title, benefits=benefits, meta_description=description)
 
 @app.route("/impact")
 def impact():
-    return render_template("impact.html", title="Our Impact")
+    title = "Our Impact | Environmental & Social Contributions"
+    description = "Discover how GauBaanSa is making a positive environmental and social impact through carbon-negative construction and promoting a circular economy."
+    return render_template("impact.html", title=title, meta_description=description)
 
 @app.route("/endorsements")
 def endorsements():
     endorsements_list = Endorsement.query.order_by(Endorsement.id).all()
     achievements_list = Achievement.query.order_by(Achievement.id).all()
-    return render_template("endorsements.html", title="Our Endorsements", endorsements=endorsements_list, achievements=achievements_list)
+    return render_template("endorsements.html", title="Endorsements & Achievements | GauBaanSa", endorsements=endorsements_list, achievements=achievements_list)
 
 @app.cli.command("init-db")
 def init_db_command():
@@ -302,9 +335,15 @@ def init_db_command():
         return
 
     print("Seeding database with initial data...")
-    # Use a loop and **kwargs to create model instances from the imported data
-    db.session.add_all([Product(**p) for p in sample_products])
-    db.session.add_all([Blog(**p) for p in sample_posts])
+    
+    for p_data in sample_products:
+        p_data['slug'] = slugify(p_data['name'])
+        db.session.add(Product(**p_data))
+
+    for p_data in sample_posts:
+        p_data['slug'] = slugify(p_data['title'])
+        db.session.add(Blog(**p_data))
+
     db.session.add_all([Review(**p) for p in sample_reviews])
     db.session.add_all([Project(**p) for p in sample_projects])
     db.session.add_all([TeamMember(**p) for p in sample_team])
@@ -357,11 +396,11 @@ def sitemap():
 
     # Dynamic routes for products
     for product in Product.query.all():
-        pages.append(url_for('product_detail', product_id=product.id, _external=True))
+        pages.append(url_for('product_detail', slug=product.slug, _external=True))
 
     # Dynamic routes for blog posts
     for post in Blog.query.all():
-        pages.append(url_for('blog_post', post_id=post.id, _external=True))
+        pages.append(url_for('blog_post', slug=post.slug, _external=True))
 
     xml_sitemap = render_template('sitemap_template.xml', pages=pages)
     response = make_response(xml_sitemap)
