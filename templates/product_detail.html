@@ -23,14 +23,6 @@
     "@type": "Brand",
     "name": "GauBaanSa"
   },
-  "offers": {
-    "@type": "Offer",
-    "url": "{{ request_url }}",
-    "priceCurrency": "INR",
-    "price": "{{ product.price }}",
-    "itemCondition": "https://schema.org/NewCondition",
-    "availability": "https://schema.org/InStock"
-  }
 }
 </script>
 {% endblock %}
@@ -47,7 +39,9 @@
         </div>
         <div class="product-details">
             <h1>{{ product.name }}</h1>
-            <p class="product-price">₹{{ "%.2f"|format(product.price) }} / {{ product.unit }}</p>
+            {% if product.unit %}
+            <p class="product-unit-info">Sold per {{ product.unit }}</p>
+            {% endif %}
             
             {% if product.features %}
             <div class="product-features">

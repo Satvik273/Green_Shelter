@@ -4,7 +4,6 @@ sample_products = [
     {
         "name": "Cow Dung Bricks",
         "description": "Lightweight, thermally insulating, and naturally antibacterial bricks made from processed cow dung.",
-        "price": 15,
         "image": "images/gallery/cow-dung/natural_plaster.jpg",
         "category": "construction",
         "features": "Thermal Insulation,Antibacterial,Lightweight",
@@ -13,7 +12,6 @@ sample_products = [
     {
         "name": "Bamboo Composite Materials",
         "description": "High-strength composite materials made from engineered bamboo for versatile construction applications.",
-        "price": 950,
         "image": "images/gallery/bamboo/bamboo_framework.jpg",
         "category": "bamboo",
         "features": "High Strength,Renewable,Versatile",
@@ -22,7 +20,6 @@ sample_products = [
     {
         "name": "Structural Reed Panels",
         "description": "Eco-friendly panels made from compressed reed, suitable for walls and insulation in green buildings.",
-        "price": 450,
         "image": "images/products/reed_panels.jpg", # NOTE: Add this image to static/images/products/
         "category": "construction",
         "features": "Eco-Friendly,Insulating,Sustainable",
