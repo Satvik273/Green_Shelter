@@ -22,6 +22,8 @@ services:
     buildCommand: |
       pip install -r requirements.txt
       flask db upgrade
+      flask init-db
+      flask generate-sitemap
     startCommand: "gunicorn --workers 4 --bind 0.0.0.0:$PORT app:app"
     envVars:
       - key: PYTHON_VERSION

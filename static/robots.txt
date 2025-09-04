@@ -1,0 +1,10 @@
+# This file tells search engine crawlers which pages or files the crawler
+# can or can't request from your site.
+
+User-agent: *
+# Disallow crawling of form submission endpoints or admin areas.
+# The /subscribe endpoint is for the newsletter form.
+Disallow: /subscribe
+
+# Point crawlers to the sitemap for better discovery of all your pages.
+Sitemap: https://www.ikstech.co.in/sitemap.xml
