@@ -398,37 +398,40 @@ def sitemap():
 @app.cli.command("generate-sitemap")
 def generate_sitemap_command():
     """Generates a static sitemap.xml file in the static directory."""
-    pages = [] # Will be a list of dicts: {'loc': url, 'lastmod': date}
-    base_url = "https://www.ikstech.co.in"
-    now = datetime.utcnow().strftime('%Y-%m-%d')
+    # By wrapping this in a test_request_context, we can use url_for(),
+    # which is necessary to generate the correct paths for the sitemap.
+    with app.test_request_context():
+        pages = [] # Will be a list of dicts: {'loc': url, 'lastmod': date}
+        base_url = "https://www.ikstech.co.in"
+        now = datetime.utcnow().strftime('%Y-%m-%d')
 
-    endpoints = [
-        'home', 'about', 'projects_page', 'products', 'services', 'contact',
-        'blog', 'gallery', 'faq', 'reviews', 'awards', 'media',
-        'why_natural', 'impact', 'endorsements'
-    ]
-    # Add static pages with the current date
-    for endpoint in endpoints:
-        pages.append({
-            "loc": f"{base_url}{url_for(endpoint)}",
-            "lastmod": now
-        })
+        endpoints = [
+            'home', 'about', 'projects_page', 'products', 'services', 'contact',
+            'blog', 'gallery', 'faq', 'reviews', 'awards', 'media',
+            'why_natural', 'impact', 'endorsements'
+        ]
+        # Add static pages with the current date
+        for endpoint in endpoints:
+            pages.append({
+                "loc": f"{base_url}{url_for(endpoint)}",
+                "lastmod": now
+            })
 
-    # Add dynamic product pages with their last update date
-    for product in Product.query.all():
-        pages.append({
-            "loc": f"{base_url}{url_for('product_detail', slug=product.slug)}",
-            "lastmod": product.date_updated.strftime('%Y-%m-%d')
-        })
+        # Add dynamic product pages with their last update date
+        for product in Product.query.all():
+            pages.append({
+                "loc": f"{base_url}{url_for('product_detail', slug=product.slug)}",
+                "lastmod": product.date_updated.strftime('%Y-%m-%d')
+            })
 
-    # Add dynamic blog post pages with their last update date
-    for post in Blog.query.all():
-        pages.append({
-            "loc": f"{base_url}{url_for('blog_post', slug=post.slug)}",
-            "lastmod": post.date_updated.strftime('%Y-%m-%d')
-        })
+        # Add dynamic blog post pages with their last update date
+        for post in Blog.query.all():
+            pages.append({
+                "loc": f"{base_url}{url_for('blog_post', slug=post.slug)}",
+                "lastmod": post.date_updated.strftime('%Y-%m-%d')
+            })
 
-    xml_sitemap = render_template('sitemap_template.xml', pages=pages)
+        xml_sitemap = render_template('sitemap_template.xml', pages=pages)
 
     sitemap_path = os.path.join(app.static_folder, 'sitemap.xml')
     try:
