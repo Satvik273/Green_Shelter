@@ -12,8 +12,6 @@ services:
       pip install -r requirements.txt
       # Apply any pending database migrations before starting the app
       flask db upgrade
-      # Generate the static sitemap after the database is ready
-      flask generate-sitemap
     startCommand: gunicorn app:app
     envVars:
       - key: DATABASE_URL
