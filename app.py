@@ -149,6 +149,16 @@ class Achievement(db.Model):
     description = db.Column(db.Text, nullable=False)
     icon = db.Column(db.String(100), nullable=False)
 
+@app.before_request
+def handle_canonical_domain():
+    """Redirect non-www requests to www for the production domain."""
+    # This redirect is important for SEO to avoid duplicate content.
+    # It should only run on the production domain, not in local development.
+    if request.host == 'ikstech.co.in':
+        # request.url contains the full URL including the scheme and path.
+        # We just replace the host part for a permanent (301) redirect.
+        new_url = request.url.replace('//ikstech.co.in', '//www.ikstech.co.in', 1)
+        return redirect(new_url, code=301)
 
 @app.context_processor
 def inject_global_vars():
