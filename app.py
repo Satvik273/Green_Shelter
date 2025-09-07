@@ -64,6 +64,7 @@ class Product(db.Model):
     category = db.Column(db.String(100), nullable=False)
     features = db.Column(db.String(200), nullable=True)
     unit = db.Column(db.String(50), nullable=True)
+    date_updated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 # Blog model
 class Blog(db.Model):
@@ -74,6 +75,7 @@ class Blog(db.Model):
     image = db.Column(db.String(200), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     excerpt = db.Column(db.String(300), nullable=False)
+    date_updated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
