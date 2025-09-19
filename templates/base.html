@@ -1,25 +1,26 @@
+{% set final_description = description or 'Discover GauBaanSa: Sustainable homes with green technology from IIT Delhi. We use carbon-negative bamboo and cow dung bricks for an eco-friendly future.' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{% block meta_description %}{{ description or 'Discover GauBaanSa: Sustainable homes with green technology from IIT Delhi. We use carbon-negative bamboo and cow dung bricks for an eco-friendly future.' }}{% endblock %}">
+    <meta name="description" content="{% block meta_description %}{{ final_description }}{% endblock %}">
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="hrYFqdDnMRm6eTvhBXmKL1Nt5IdRF9FMNF3YKBdB58s" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
     <meta property="og:site_name" content="GauBaanSa">
-    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:url" content="{{ request.url.replace('http://', 'https://') }}">
     <meta property="og:title" content="{{ title }} - GauBaanSa">
-    <meta property="og:description" content="{% block og_description %}{{ self.meta_description() }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ final_description }}{% endblock %}">
     <meta property="og:image" content="{% block og_image %}{{ default_og_image }}{% endblock %}">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="{{ request.url }}">
+    <meta name="twitter:url" content="{{ request.url.replace('http://', 'https://') }}">
     <meta name="twitter:title" content="{{ title }} - GauBaanSa">
-    <meta name="twitter:description" content="{% block twitter_description %}{{ self.meta_description() }}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{{ final_description }}{% endblock %}">
     <meta name="twitter:image" content="{% block twitter_image %}{{ default_og_image }}{% endblock %}">
 
     <meta name="keywords" content="IKS technologies, gaubaansa, Green construction technology, Green homes, Sustainable Construction, Bamboo houses, Cowdung bricks, Sustainable living, Sustainable housing, Structural health monitoring, Carbon negative construction materials, Smart materials, Earthquake safe green construction, Seismic resilient Green structures, Green construction technology by IIT Delhi Engineers, FRBC technology">
