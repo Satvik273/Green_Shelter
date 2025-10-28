@@ -60,6 +60,23 @@ sample_posts = [
         "image": "images/blogs/blog2/constructionwaste.jpg",
         "excerpt": "The hidden environmental cost of construction and how green materials offer a solution."
     }
+    ,
+    {
+        "title": "GauBaanSa at the Indian Concrete Institute Conference on Sustainability",
+        "content": (
+            "<p>Just wrapped up an amazing conference organised by Indian Concrete Institute, Goa Chapter, on sustainability in construction, celebrating Concrete Day! 🌟</p>"
+            "<p>As a Resource Speaker, I was thrilled to share insights on making our built environment more sustainable, highlighting our innovative work at IKS Technologies Private Limited, GauBaanSa brand. We're redefining construction with eco-friendly, engineered, and earthquake-resistant structures made from Bamboo, Cow dung, and Reed. It was a pleasure to showcase our research and vision for a more sustainable future in construction!</p>"
+            '<div class="blog-gallery">'
+            '<img src="/static/images/blogs/blog3/image.jpg" alt="GauBaanSa presentation at the conference">'
+            '<img src="/static/images/blogs/blog3/image2.jpeg" alt="GauBaanSa speaker with conference organizers">'
+            '<img src="/static/images/blogs/blog3/image3.jpeg" alt="Networking at the Indian Concrete Institute event">'
+            '<img src="/static/images/blogs/blog3/image4.jpeg" alt="Audience at the sustainability conference">'
+            '</div>'
+            "<p>Kudos to the organizing committee for putting together such a thought-provoking event! 👏 Dr. Jennifer Lewis, Shruti Jambhale, Reuben Mascarenhas, and Satyesh Kakodkar.</p>"
+        ),
+        "image": "images/blogs/blog3/image1.jpg",
+        "excerpt": "Sharing our vision for a sustainable future in construction at the Indian Concrete Institute conference in Goa."
+    }
 ]
 
 sample_reviews = [
@@ -100,6 +117,12 @@ sample_gallery_images = [
     {"path": "images/gallery/construction/Picture5.png", "title": "Prototype", "category": "Construction"},
     {"path": "images/gallery/construction/Picture6.png", "title": "Cow Dung Brick Prototype", "category": "Construction"},
 ]
+sample_gallery_images.extend([
+    {"path": "images/blogs/blog3/image.jpg", "title": "Conference Presentation", "category": "Events"},
+    {"path": "images/blogs/blog3/image4.jpeg", "title": "Conference Audience", "category": "Events"},
+    {"path": "images/blogs/blog3/image3.jpeg", "title": "Networking at Event", "category": "Events"},
+    {"path": "images/blogs/blog3/image2.jpeg", "title": "With Conference Organizers", "category": "Events"},
+])
 
 sample_faqs = [
     {"question": "Is this technology fire resistance proof?", "answer": "Yes, Our technology provides better fire resistance than conventional RCC construction after treatment."},

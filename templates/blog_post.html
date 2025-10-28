@@ -47,11 +47,39 @@
             <i class="fas fa-calendar-alt"></i> Published on {{ post.date_posted.strftime('%B %d, %Y') }}
         </p>
     </header>
-    <div class="post-image">
+    <div class="post-image" id="main-post-image-container">
         <img src="{{ url_for('static', filename=post.image) }}" alt="{{ post.title }}">
     </div>
     <div class="post-content">
         {{ post.content|safe }}
     </div>
 </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const postContent = document.querySelector('.post-content');
+    const gallery = postContent ? postContent.querySelector('.blog-gallery') : null;
+    const mainImageContainer = document.getElementById('main-post-image-container');
+
+    if (gallery && mainImageContainer) {
+        // 1. Hide the gallery initially
+        gallery.style.display = 'none';
+
+        // 2. Make the main image clickable
+        mainImageContainer.style.cursor = 'pointer';
+        mainImageContainer.title = 'Click to see more images';
+
+        // 3. Add a click event listener to show the gallery
+        mainImageContainer.addEventListener('click', function() {
+            if (gallery.style.display === 'none') {
+                gallery.style.display = 'grid'; // Or 'block', 'flex', etc., depending on your CSS for .blog-gallery
+                // Optional: scroll to the gallery
+                gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, { once: true }); // Use { once: true } so it only triggers once
+    }
+});
+</script>
 {% endblock %}

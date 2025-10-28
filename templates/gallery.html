@@ -15,13 +15,14 @@
         <button class="filter-btn" data-category="Bamboo">Bamboo</button>
         <button class="filter-btn" data-category="Cow-Dung">Cow Dung</button>
         <button class="filter-btn" data-category="Construction">Construction</button>
+        <button class="filter-btn" data-category="Events">Events</button>
     </div>
 
     <!-- Gallery grid -->
     <div class="gallery-grid">
         {% for image in gallery_images %}
         <div class="gallery-item" data-category="{{ image.category }}">
-            <a href="{{ url_for('static', filename=image.path) }}" data-lightbox="gallery" data-title="{{ image.title }}">
+            <a href="{{ url_for('static', filename=image.path) }}" data-lightbox="{{ image.category }}" data-title="{{ image.title }}">
                 <img src="{{ url_for('static', filename=image.path) }}" alt="{{ image.title }}">
                 <div class="gallery-overlay">
                     <h3>{{ image.title }}</h3>
