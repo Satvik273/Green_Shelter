@@ -6,7 +6,7 @@
 @import 'components/about.css';
 @import 'components/team.css';
 @import 'components/impact.css';
-@import 'components/endorsements.css';
+@import 'components/endorsements.css'; /* This file will be created */
 @import 'components/contact.css';
 @import 'components/products.css';
 @import 'components/faq.css';

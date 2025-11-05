@@ -334,6 +334,11 @@ def endorsements():
     achievements_list = Achievement.query.order_by(Achievement.id).all()
     return render_template("endorsements.html", title="Endorsements & Achievements | GauBaanSa", endorsements=endorsements_list, achievements=achievements_list)
 
+@app.route("/recognition-certificate")
+def recognition_certificate():
+    """Serves the recognition PDF file."""
+    return send_from_directory(os.path.join(app.static_folder, 'documents'), 'DPIIT_Recognition_Certificate.pdf')
+
 @app.cli.command("init-db")
 def init_db_command():
     """Creates the database tables and seeds them with initial data."""

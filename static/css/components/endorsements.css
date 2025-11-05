@@ -1,15 +1,18 @@
 /* Endorsements Page Styles */
 
 .endorsements-hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../images/gallery/construction/process.jpg') center/cover no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../images/gallery/construction/finished.jpg') center/cover no-repeat;
     color: var(--white);
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 140px 20px 80px; /* Add top padding to account for navbar height */
 }
 
 .endorsements-hero h1 {
-    font-size: 2.8em;
-    margin-bottom: 20px;
+    font-size: 3em;
+    margin: 0 auto 20px;
     color: var(--white);
 }
 
@@ -19,66 +22,48 @@
     margin: 0 auto;
 }
 
-.achievements-section {
-    max-width: 1000px;
-    margin: 60px auto;
-    padding: 0 20px;
+.endorsements-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
 }
 
-.achievements-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 30px;
+.endorsements-section, .achievements-section, .recognition-section {
+    margin-bottom: 80px;
 }
 
-.achievement-card {
-    background: var(--white);
-    border-radius: 8px;
-    box-shadow: var(--shadow-md);
-    padding: 30px;
-    display: flex;
-    align-items: flex-start;
-    gap: 25px;
-    border-left: 5px solid var(--primary);
-    transition: var(--transition);
-}
-
-.achievement-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-}
-
-.achievement-card i {
+.endorsements-section h2, .achievements-section h2, .recognition-section h2 {
+    position: relative;
+    text-align: center;
     font-size: 2.5em;
-    color: var(--primary);
-    margin-top: 5px;
+    margin-bottom: 60px; /* Increased margin */
 }
 
-.achievement-content h3 {
-    color: var(--primary);
-    font-size: 1.4em;
-    margin: 0 0 10px;
+.endorsements-section h2::after, .achievements-section h2::after, .recognition-section h2::after {
+    content: '';
+    display: block;
+    width: 70px;
+    height: 3px;
+    background: var(--secondary);
+    margin: 15px auto 0;
 }
 
-.achievement-content p {
-    color: var(--text-light);
-    line-height: 1.6;
-    margin: 0;
-}
-
+/* Endorsements Grid */
 .endorsements-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
+    gap: 30px;
+    justify-content: center;
 }
 
 .endorsement-card {
     background: var(--white);
-    border-radius: 8px;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition);
+    border-radius: 12px;
     padding: 30px;
     text-align: center;
+    box-shadow: var(--shadow-md);
+    border: 1px solid #eee;
+    transition: var(--transition);
     text-decoration: none;
     color: var(--text-dark);
 }
@@ -89,50 +74,120 @@
 }
 
 .endorsement-card img {
-    max-width: 100%;
-    height: 100px;
-    object-fit: contain;
+    height: 80px;
     margin-bottom: 20px;
-    filter: grayscale(100%);
-    transition: filter 0.3s ease;
+    object-fit: contain;
 }
 
-.endorsement-card:hover img {
-    filter: grayscale(0%);
-}
-
-.endorsement-card p {
-    font-weight: 600;
-    font-size: 1.1em;
+.endorsement-card h3 {
+    color: var(--primary);
+    font-size: 1.2em;
     margin: 0;
 }
 
-@media (max-width: 768px) {
-    .endorsements-hero h1 {
-        font-size: 2.5em;
-    }
-
-    .achievement-card {
-        flex-direction: column;
-        text-align: center;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .endorsements-section h2 {
-        font-size: 2em;
-    }
+/* Add a subtle background to the achievements section for visual separation */
+.achievements-section {
+    background-color: var(--accent);
+    padding: 60px 0;
 }
 
-.endorsements-section {
-    max-width: 1200px;
-    margin: 80px auto 60px;
-    padding: 0 20px;
+/* Override centered styles specifically for the achievements section heading */
+.achievements-section h2 {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.achievements-section h2::after {
+    margin: 15px 0 0; /* Align the underline to the left */
+}
+
+/* Achievements List */
+.achievements-list {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.achievement-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    padding: 30px 40px;
+    border-left: 5px solid var(--primary);
+    transition: var(--transition);
+}
+
+.achievement-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.achievement-item i {
+    font-size: 2.5em;
+    color: var(--primary);
+    margin-top: 5px;
+}
+
+.achievement-text {
+    flex-grow: 1; /* Allow this container to grow and fill space */
+    text-align: left; /* Align text to the left */
+}
+
+.achievement-text h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    /* text-align: center; is now handled by the parent .achievement-text */
+}
+
+/* Recognition Section */
+.recognition-card {
+    max-width: 800px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, var(--primary), #3a9d3f);
+    color: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    padding: 50px;
     text-align: center;
 }
 
-.endorsements-section h2 {
+.recognition-content i {
+    font-size: 4em;
+    color: var(--white);
+    margin-bottom: 20px;
+}
+
+.recognition-content h3 {
+    font-size: 1.8em;
+    color: var(--white);
+    margin-bottom: 15px;
+}
+
+.recognition-content p {
+    font-size: 1.1em;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 30px;
+}
+
+.recognition-content .button {
+    background: var(--secondary);
+    color: var(--text-dark);
+    font-weight: bold;
+    padding: 12px 30px;
+    border-radius: 25px;
+    transition: var(--transition);
+}
+
+.recognition-content .button:hover {
+    background: var(--white);
     color: var(--primary);
-    font-size: 2.5em;
-    margin-bottom: 40px;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }

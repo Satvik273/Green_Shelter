@@ -68,6 +68,7 @@ sample_posts = [
             "<p>As a Resource Speaker, I was thrilled to share insights on making our built environment more sustainable, highlighting our innovative work at IKS Technologies Private Limited, GauBaanSa brand. We're redefining construction with eco-friendly, engineered, and earthquake-resistant structures made from Bamboo, Cow dung, and Reed. It was a pleasure to showcase our research and vision for a more sustainable future in construction!</p>"
             '<div class="blog-gallery">'
             '<img src="/static/images/blogs/blog3/image.jpg" alt="GauBaanSa presentation at the conference">'
+            '<img src="/static/images/blogs/blog3/image0.jpeg" alt="GauBaanSa presentation at the conference">'
             '<img src="/static/images/blogs/blog3/image2.jpeg" alt="GauBaanSa speaker with conference organizers">'
             '<img src="/static/images/blogs/blog3/image3.jpeg" alt="Networking at the Indian Concrete Institute event">'
             '<img src="/static/images/blogs/blog3/image4.jpeg" alt="Audience at the sustainability conference">'

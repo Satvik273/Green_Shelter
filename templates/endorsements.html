@@ -2,43 +2,52 @@
 
 {% block body_class %}has-full-hero{% endblock %}
 
-{% block extra_head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/components/endorsements.css', v=cache_buster) }}">
-{% endblock %}
-
 {% block content %}
-<div class="endorsements-page">
-    <div class="endorsements-hero">
-        <h1>Our Endorsements &amp; Recognitions</h1>
-        <p>We are proud to be recognized by leading institutions and to have our innovations acknowledged through patents and global alignments.</p>
+<section class="endorsements-hero">
+    <div class="hero-content">
+        <h1>Endorsements & Achievements</h1>
+        <p>We are proud to be recognized and supported by leading institutions and to have achieved significant milestones in our journey towards sustainable construction.</p>
     </div>
+</section>
 <!-- 
-    <div class="endorsements-section">
-        <h2>Endorsed By</h2>
+<div class="endorsements-page">
+    <section class="endorsements-section">
+        <h2>Our Endorsements</h2>
         <div class="endorsements-grid">
             {% for endorsement in endorsements %}
             <a href="{{ endorsement.url }}" target="_blank" rel="noopener noreferrer" class="endorsement-card">
                 <img src="{{ url_for('static', filename=endorsement.logo) }}" alt="{{ endorsement.name }} Logo">
-                <p>{{ endorsement.name }}</p>
+                <h3>{{ endorsement.name }}</h3>
             </a>
             {% endfor %}
         </div>
-    </div> -->
+    </section> -->
 
-
-    <div class="achievements-section">
+    <section class="achievements-section">
         <h2>Our Achievements</h2>
-        <div class="achievements-grid">
+        <div class="achievements-list">
             {% for achievement in achievements %}
-            <div class="achievement-card">
+            <div class="achievement-item">
                 <i class="{{ achievement.icon }}"></i>
-                <div class="achievement-content">
+                <div class="achievement-text">
                     <h3>{{ achievement.title }}</h3>
                     <p>{{ achievement.description }}</p>
                 </div>
             </div>
             {% endfor %}
         </div>
-    </div>
+    </section>
+
+    <section class="recognition-section">
+        <h2>Official Recognition</h2>
+        <div class="recognition-card">
+            <div class="recognition-content">
+                <i class="fas fa-file-pdf"></i>
+                <h3>Certificate of Recognition</h3>
+                <p>We are officially recognized as a startup by the Department for Promotion of Industry and Internal Trade.</p>
+                <a href="{{ url_for('recognition_certificate') }}" target="_blank" class="button">View Certificate</a>
+            </div>
+        </div>
+    </section>
 </div>
 {% endblock %}
